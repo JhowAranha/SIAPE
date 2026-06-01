@@ -1,0 +1,4266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="description" content="SIAPE - Sistema Inteligente de Achados e Perdidos Escolar. A solução definitiva para recuperar seus pertences.">
+    <meta name="keywords" content="achados e perdidos, escola, sistema inteligente, SIAPE">
+    <meta name="author" content="SIAPE Team">
+    <title>SIAPE - Sistema de Achados e Perdidos</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        /* ========================================
+           RESET & CSS VARIABLES ULTRA AVANÇADAS
+        ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Paleta de Cores Premium */
+            --primary-50: #eef2ff;
+            --primary-100: #e0e7ff;
+            --primary-200: #c7d2fe;
+            --primary-300: #a5b4fc;
+            --primary-400: #818cf8;
+            --primary-500: #6366f1;
+            --primary-600: #4f46e5;
+            --primary-700: #4338ca;
+            --primary-800: #3730a3;
+            --primary-900: #312e81;
+            
+            --secondary-50: #faf5ff;
+            --secondary-100: #f3e8ff;
+            --secondary-200: #e9d5ff;
+            --secondary-300: #d8b4fe;
+            --secondary-400: #c084fc;
+            --secondary-500: #a855f7;
+            --secondary-600: #9333ea;
+            --secondary-700: #7e22ce;
+            --secondary-800: #6b21a8;
+            --secondary-900: #581c87;
+            
+            --accent-50: #fdf2f8;
+            --accent-100: #fce7f3;
+            --accent-200: #fbcfe8;
+            --accent-300: #f9a8d4;
+            --accent-400: #f472b6;
+            --accent-500: #ec4899;
+            --accent-600: #db2777;
+            --accent-700: #be185d;
+            --accent-800: #9d174d;
+            --accent-900: #831843;
+            
+            --success-50: #ecfdf5;
+            --success-100: #d1fae5;
+            --success-500: #10b981;
+            --success-600: #059669;
+            --success-700: #047857;
+            
+            --warning-50: #fffbeb;
+            --warning-100: #fef3c7;
+            --warning-500: #f59e0b;
+            --warning-600: #d97706;
+            
+            --danger-50: #fef2f2;
+            --danger-100: #fee2e2;
+            --danger-500: #ef4444;
+            --danger-600: #dc2626;
+            --danger-700: #b91c1c;
+            
+            --info-50: #eff6ff;
+            --info-500: #3b82f6;
+            --info-600: #2563eb;
+            
+            /* Tons de Cinza Refinados */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Gradientes Épicos */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-info: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            --gradient-rainbow: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-ocean: linear-gradient(135deg, #2e3192 0%, #1bffff 100%);
+            --gradient-fire: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            --gradient-forest: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            --gradient-purple: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%);
+            
+            /* Sombras Profissionais */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.4);
+            --shadow-glow-strong: 0 0 60px rgba(99, 102, 241, 0.6);
+            
+            /* Transições Suaves */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --transition-smooth: 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            
+            /* Espaçamentos Consistentes */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            --spacing-4xl: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-3xl: 2rem;
+            --radius-full: 9999px;
+            
+            /* Z-index Layers */
+            --z-base: 1;
+            --z-dropdown: 100;
+            --z-sticky: 200;
+            --z-fixed: 300;
+            --z-modal-backdrop: 400;
+            --z-modal: 500;
+            --z-popover: 600;
+            --z-tooltip: 700;
+            --z-notification: 800;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --gray-50: #111827;
+            --gray-100: #1f2937;
+            --gray-200: #374151;
+            --gray-300: #4b5563;
+            --gray-400: #6b7280;
+            --gray-500: #9ca3af;
+            --gray-600: #d1d5db;
+            --gray-700: #e5e7eb;
+            --gray-800: #f3f4f6;
+            --gray-900: #f9fafb;
+        }
+
+        /* ========================================
+           BASE STYLES ULTRA POLISHED
+        ======================================== */
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: "kern" 1, "liga" 1;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background animado épico */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+            animation: backgroundPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Selection Color */
+        ::selection {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        ::-moz-selection {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        /* ========================================
+           ANIMAÇÕES MASTER LEVEL
+        ======================================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: translateY(0);
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(99, 102, 241, 0.8), 0 0 75px rgba(139, 92, 246, 0.6);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% {
+                transform: rotate(-3deg);
+            }
+            50% {
+                transform: rotate(3deg);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(0.9);
+            }
+            20%, 40% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes slideOutRight {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-200deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0);
+            }
+        }
+
+        @keyframes flipInX {
+            from {
+                transform: perspective(400px) rotateX(90deg);
+                opacity: 0;
+            }
+            to {
+                transform: perspective(400px) rotateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes particles {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-1000px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* ========================================
+           LOADING SCREEN ÉPICO
+        ======================================== */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loading-logo {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4));
+        }
+
+        .loading-spinner {
+            width: 90px;
+            height: 90px;
+            border: 10px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .loading-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .loading-progress {
+            width: 350px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            background: white;
+            border-radius: var(--radius-full);
+            animation: loadProgress 2.5s ease-in-out;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* ========================================
+           LOGIN SCREEN MELHORADO
+        ======================================== */
+        .login-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl);
+            overflow: auto;
+            z-index: 1;
+        }
+
+        .login-background {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .login-particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: particles 20s linear infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            max-width: 550px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(30px);
+            padding: var(--spacing-3xl) var(--spacing-2xl);
+            border-radius: var(--radius-3xl);
+            box-shadow: var(--shadow-2xl), 0 0 100px rgba(99, 102, 241, 0.2);
+            animation: fadeInScale 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .logo-icon {
+            font-size: 6rem;
+            margin-bottom: var(--spacing-lg);
+            display: inline-block;
+            animation: bounce 2s infinite, glow 3s infinite;
+            filter: drop-shadow(0 15px 40px rgba(99, 102, 241, 0.4));
+        }
+
+        .logo h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-sm);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -2px;
+        }
+
+        .logo-subtitle {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        /* ========================================
+           FORMS ULTRA PREMIUM
+        ======================================== */
+        .form-group {
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            color: var(--gray-700);
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1.125rem 1.5rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            font-size: 1.05rem;
+            font-family: inherit;
+            transition: all var(--transition-base);
+            background: white;
+            color: var(--gray-900);
+            font-weight: 500;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 5px var(--primary-100), var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--gray-400);
+            font-weight: 400;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--gray-400);
+            pointer-events: none;
+            transition: all var(--transition-base);
+        }
+
+        .input-wrapper:focus-within .input-icon {
+            color: var(--primary-500);
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .input-with-icon {
+            padding-left: 4rem;
+        }
+
+        /* Validação visual */
+        input:invalid:not(:placeholder-shown) {
+            border-color: var(--danger-500);
+        }
+
+        input:valid:not(:placeholder-shown) {
+            border-color: var(--success-500);
+        }
+
+        input:invalid:not(:placeholder-shown):focus {
+            box-shadow: 0 0 0 5px var(--danger-100), var(--shadow-lg);
+        }
+
+        input:valid:not(:placeholder-shown):focus {
+            box-shadow: 0 0 0 5px var(--success-100), var(--shadow-lg);
+        }
+
+        /* ========================================
+           BUTTONS ULTRA PREMIUM
+        ======================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: 1.125rem 2.5rem;
+            border: none;
+            border-radius: var(--radius-xl);
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2xl), var(--shadow-glow);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2xl), 0 0 40px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2xl), 0 0 40px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-warning {
+            background: var(--gradient-warning);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2xl), 0 0 40px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-200);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--primary-600);
+            border: 2px solid var(--primary-200);
+        }
+
+        .btn-ghost:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-500);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-icon {
+            padding: 0.875rem;
+            border-radius: var(--radius-full);
+            width: 56px;
+            height: 56px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ========================================
+           APP CONTAINER & LAYOUT
+        ======================================== */
+        .app-container {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           SIDEBAR ULTRA PROFISSIONAL
+        ======================================== */
+        .sidebar {
+            width: 340px;
+            background: white;
+            box-shadow: var(--shadow-2xl);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: var(--z-sticky);
+            transition: transform var(--transition-base);
+        }
+
+        .sidebar-header {
+            padding: var(--spacing-2xl);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -1px;
+        }
+
+        .sidebar-user {
+            padding: var(--spacing-2xl);
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .user-avatar-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .user-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-xl);
+            border: 5px solid white;
+            transition: all var(--transition-base);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .user-status {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            background: var(--success-500);
+            border-radius: var(--radius-full);
+            border: 4px solid white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+        }
+
+        .user-info {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .user-name {
+            font-weight: 800;
+            color: var(--gray-900);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-email {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .user-stat {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--gray-200);
+            transition: all var(--transition-base);
+        }
+
+        .user-stat:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-500);
+            box-shadow: var(--shadow-md);
+        }
+
+        .user-stat-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-600);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .user-stat-label {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+            font-weight: 700;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--spacing-xl);
+        }
+
+        .nav-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-md);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            padding: 1.125rem var(--spacing-xl);
+            color: var(--gray-600);
+            text-decoration: none;
+            border-radius: var(--radius-xl);
+            font-weight: 700;
+            transition: all var(--transition-base);
+            margin-bottom: var(--spacing-md);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: var(--gray-50);
+            color: var(--primary-600);
+            transform: translateX(8px);
+        }
+
+        .nav-item.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 70%;
+            background: white;
+            border-radius: 0 var(--radius-full) var(--radius-full) 0;
+        }
+
+        .nav-icon {
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--danger-500);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.375rem 0.625rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            min-width: 28px;
+            text-align: center;
+            animation: heartbeat 1.5s infinite;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .sidebar-footer {
+            padding: var(--spacing-xl);
+            border-top: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+
+        .theme-toggle {
+            width: 100%;
+            padding: 1.125rem;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 600;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========================================
+           MAIN CONTENT ULTRA PREMIUM
+        ======================================== */
+        .main-content {
+            flex: 1;
+            background: var(--gray-50);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .content-header {
+            background: white;
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-sticky);
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.97);
+        }
+
+        .content-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+
+        .content-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .breadcrumb-separator {
+            color: var(--gray-300);
+        }
+
+        .content-body {
+            padding: var(--spacing-2xl);
+        }
+
+        /* ========================================
+           STATS CARDS MEGA PREMIUM
+        ======================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-base);
+            border: 1px solid var(--gray-200);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.05) 100%);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary-200);
+        }
+
+        .stat-card:hover::after {
+            opacity: 1;
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-xl);
+            transition: all var(--transition-base);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+        }
+
+        .stat-trend.up {
+            background: var(--success-50);
+            color: var(--success-700);
+        }
+
+        .stat-trend.down {
+            background: var(--danger-50);
+            color: var(--danger-600);
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            color: var(--gray-500);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-footer {
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-500);
+            font-size: 0.95rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-progress {
+            width: 100%;
+            height: 10px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-top: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        }
+
+        /* ========================================
+           CARDS MEGA PREMIUM
+        ======================================== */
+        .card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            border: 1px solid var(--gray-200);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-2xl);
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            padding: var(--spacing-2xl);
+            border-bottom: 1px solid var(--gray-200);
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card-body {
+            padding: var(--spacing-2xl);
+        }
+
+        .card-footer {
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        /* ========================================
+           ITEMS GRID ULTRA PREMIUM
+        ======================================== */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: var(--spacing-2xl);
+        }
+
+        .item-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-base);
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .item-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary-200);
+        }
+
+        .item-card.match-found {
+            border-color: var(--success-500);
+            animation: glow 2s infinite;
+        }
+
+        .item-card.match-found::before {
+            content: '✨ MATCH ENCONTRADO';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gradient-success);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 800;
+            z-index: 10;
+            animation: wiggle 1s infinite;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .item-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background: var(--gray-100);
+            overflow: hidden;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .item-card:hover .item-image {
+            transform: scale(1.2) rotate(3deg);
+        }
+
+        .item-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+        }
+
+        .item-badge {
+            position: absolute;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-xl);
+            z-index: 5;
+        }
+
+        .badge-lost {
+            background: rgba(239, 68, 68, 0.95);
+            color: white;
+        }
+
+        .badge-found {
+            background: rgba(16, 185, 129, 0.95);
+            color: white;
+        }
+
+        .item-body {
+            padding: var(--spacing-2xl);
+        }
+
+        .item-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-lg);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .item-detail {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: 1rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .item-detail-icon {
+            font-size: 1.5rem;
+            color: var(--primary-500);
+            min-width: 28px;
+        }
+
+        .item-description {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .item-footer {
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .item-user {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--gray-600);
+            font-weight: 700;
+        }
+
+        .item-date {
+            color: var(--gray-500);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           FILTERS MEGA PREMIUM
+        ======================================== */
+        .filters-wrapper {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing-3xl);
+            border: 1px solid var(--gray-200);
+        }
+
+        .filters-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-2xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+
+        .filters-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.375rem 1.5rem 1.375rem 4.5rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            font-size: 1.125rem;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+            font-weight: 500;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 5px var(--primary-100), var(--shadow-xl);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1.75rem;
+        }
+
+        /* ========================================
+           ALERTS PREMIUM
+        ======================================== */
+        .alert {
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--spacing-xl);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-lg);
+            font-weight: 600;
+            animation: slideInDown var(--transition-base) ease-out;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .alert-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .alert-success {
+            background: var(--success-50);
+            color: var(--success-700);
+            border-left: 8px solid var(--success-500);
+        }
+
+        .alert-warning {
+            background: var(--warning-50);
+            color: #92400e;
+            border-left: 8px solid var(--warning-500);
+        }
+
+        .alert-danger {
+            background: var(--danger-50);
+            color: #991b1b;
+            border-left: 8px solid var(--danger-500);
+        }
+
+        .alert-info {
+            background: var(--primary-50);
+            color: var(--primary-900);
+            border-left: 8px solid var(--primary-500);
+        }
+
+        /* ========================================
+           IMAGE UPLOAD PREMIUM
+        ======================================== */
+        .image-upload-wrapper {
+            position: relative;
+        }
+
+        .image-upload {
+            border: 3px dashed var(--gray-300);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-3xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            background: var(--gray-50);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-upload::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .image-upload:hover::before {
+            opacity: 0.08;
+        }
+
+        .image-upload.has-image {
+            border-style: solid;
+            padding: 0;
+            border-color: var(--success-500);
+        }
+
+        .upload-icon {
+            font-size: 5rem;
+            color: var(--gray-400);
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .upload-text {
+            color: var(--gray-700);
+            font-weight: 800;
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .upload-hint {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: var(--radius-2xl);
+        }
+
+        .remove-image {
+            position: absolute;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background: var(--danger-500);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: var(--shadow-2xl);
+            transition: all var(--transition-base);
+            z-index: 10;
+        }
+
+        .remove-image:hover {
+            background: var(--danger-600);
+            transform: scale(1.15) rotate(90deg);
+        }
+
+        /* ========================================
+           MODAL MEGA PREMIUM
+        ======================================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: var(--z-modal-backdrop);
+            backdrop-filter: blur(15px);
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl);
+            animation: fadeIn var(--transition-base) ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-3xl);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-2xl);
+            animation: fadeInScale var(--transition-base) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid var(--gray-200);
+        }
+
+        .modal-header {
+            padding: var(--spacing-2xl);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-close {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            transition: all var(--transition-base);
+        }
+
+        .modal-close:hover {
+            background: var(--danger-500);
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-body {
+            padding: var(--spacing-2xl);
+        }
+
+        .modal-footer {
+            padding: var(--spacing-xl) var(--spacing-2xl);
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: flex-end;
+            background: var(--gray-50);
+        }
+
+        /* ========================================
+           TOAST NOTIFICATIONS PREMIUM
+        ======================================== */
+        .toast-container {
+            position: fixed;
+            top: var(--spacing-2xl);
+            right: var(--spacing-2xl);
+            z-index: var(--z-notification);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            max-width: 450px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-2xl);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-lg);
+            animation: slideInRight var(--transition-base) ease-out;
+            border-left: 6px solid var(--primary-500);
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-500);
+            animation: toastProgress 5s linear;
+        }
+
+        .toast-success::after {
+            background: var(--success-500);
+        }
+
+        .toast-success {
+            border-left-color: var(--success-500);
+        }
+
+        .toast-error::after {
+            background: var(--danger-500);
+        }
+
+        .toast-error {
+            border-left-color: var(--danger-500);
+        }
+
+        .toast-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 0.375rem;
+            font-size: 1.125rem;
+        }
+
+        .toast-message {
+            color: var(--gray-600);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        @keyframes toastProgress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* ========================================
+           EMPTY STATE
+        ======================================== */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-4xl) var(--spacing-2xl);
+            background: white;
+            border-radius: var(--radius-3xl);
+            box-shadow: var(--shadow-lg);
+            border: 2px dashed var(--gray-200);
+        }
+
+        .empty-icon {
+            font-size: 8rem;
+            margin-bottom: var(--spacing-2xl);
+            opacity: 0.5;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .empty-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-md);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .empty-description {
+            color: var(--gray-500);
+            margin-bottom: var(--spacing-2xl);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           MATCH INDICATOR
+        ======================================== */
+        .match-indicator {
+            background: var(--gradient-success);
+            color: white;
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-2xl);
+            margin-top: var(--spacing-2xl);
+            font-weight: 800;
+            text-align: center;
+            box-shadow: var(--shadow-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            font-size: 1.25rem;
+            animation: pulse 2s infinite;
+        }
+
+        .match-icon {
+            font-size: 3rem;
+            animation: bounce 1s infinite;
+        }
+
+        /* ========================================
+           CHARTS CONTAINER
+        ======================================== */
+        .chart-container {
+            position: relative;
+            height: 350px;
+            margin-top: var(--spacing-xl);
+        }
+
+        /* ========================================
+           BADGE
+        ======================================== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge-primary {
+            background: var(--primary-100);
+            color: var(--primary-700);
+        }
+
+        .badge-success {
+            background: var(--success-50);
+            color: var(--success-700);
+        }
+
+        .badge-danger {
+            background: var(--danger-50);
+            color: var(--danger-600);
+        }
+
+        .badge-warning {
+            background: var(--warning-50);
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* ========================================
+           MOBILE MENU
+        ======================================== */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: calc(var(--z-modal-backdrop) - 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            bottom: var(--spacing-2xl);
+            right: var(--spacing-2xl);
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-2xl);
+            z-index: var(--z-fixed);
+            transition: all var(--transition-base);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.15);
+            box-shadow: var(--shadow-2xl), var(--shadow-glow);
+        }
+
+        .mobile-menu-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ========================================
+           FAB CONTAINER
+        ======================================== */
+        .fab-container {
+            position: fixed;
+            bottom: var(--spacing-2xl);
+            right: calc(var(--spacing-2xl) + 90px);
+            z-index: var(--z-fixed);
+            display: flex;
+            flex-direction: column-reverse;
+            gap: var(--spacing-lg);
+        }
+
+        .fab-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-full);
+            background: white;
+            color: var(--primary-600);
+            border: 2px solid var(--primary-200);
+            font-size: 1.75rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-xl);
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab-btn:hover {
+            transform: scale(1.15);
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow-2xl), var(--shadow-glow);
+        }
+
+        /* ========================================
+           PROGRESS INDICATOR
+        ======================================== */
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gray-200);
+            z-index: var(--z-tooltip);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width var(--transition-base);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+        }
+
+        /* ========================================
+           UTILITIES
+        ======================================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .mb-0 { margin-bottom: 0; }
+        .mb-sm { margin-bottom: var(--spacing-sm); }
+        .mb-md { margin-bottom: var(--spacing-md); }
+        .mb-lg { margin-bottom: var(--spacing-lg); }
+        .mb-xl { margin-bottom: var(--spacing-xl); }
+        .mb-2xl { margin-bottom: var(--spacing-2xl); }
+        .mb-3xl { margin-bottom: var(--spacing-3xl); }
+
+        .mt-0 { margin-top: 0; }
+        .mt-sm { margin-top: var(--spacing-sm); }
+        .mt-md { margin-top: var(--spacing-md); }
+        .mt-lg { margin-top: var(--spacing-lg); }
+        .mt-xl { margin-top: var(--spacing-xl); }
+        .mt-2xl { margin-top: var(--spacing-2xl); }
+
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .gap-sm { gap: var(--spacing-sm); }
+        .gap-md { gap: var(--spacing-md); }
+        .gap-lg { gap: var(--spacing-lg); }
+        .gap-xl { gap: var(--spacing-xl); }
+
+        /* ========================================
+           SCROLLBAR CUSTOMIZATION
+        ======================================== */
+        ::-webkit-scrollbar {
+            width: 16px;
+            height: 16px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            border: 4px solid var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-500);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+        ======================================== */
+        @media (max-width: 1200px) {
+            .fab-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                transform: translateX(-100%);
+                z-index: var(--z-modal);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .app-wrapper {
+                display: block;
+            }
+
+            .content-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-header,
+            .content-body {
+                padding: var(--spacing-xl);
+            }
+
+            .login-container {
+                padding: var(--spacing-2xl) var(--spacing-xl);
+            }
+
+            .logo h1 {
+                font-size: 2.75rem;
+            }
+
+            .content-title {
+                font-size: 2rem;
+            }
+
+            .toast-container {
+                left: var(--spacing-md);
+                right: var(--spacing-md);
+                max-width: none;
+            }
+
+            .mobile-menu-btn {
+                bottom: var(--spacing-xl);
+                right: var(--spacing-xl);
+            }
+
+            .stat-value {
+                font-size: 2.75rem;
+            }
+
+            .item-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 2.25rem;
+            }
+
+            .content-title {
+                font-size: 1.75rem;
+            }
+
+            .btn {
+                padding: 1rem 1.75rem;
+                font-size: 1rem;
+            }
+
+            .stat-value {
+                font-size: 2.25rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ========================================
+           PRINT STYLES
+        ======================================== */
+        @media print {
+            .sidebar,
+            .mobile-menu-btn,
+            .fab-container,
+            .filters-wrapper,
+            .btn,
+            .header-actions,
+            .toast-container,
+            .progress-indicator {
+                display: none !important;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .item-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--gray-300);
+            }
+
+            body {
+                background: white;
+            }
+        }
+
+        /* ========================================
+           ANIMATION DELAY UTILITIES
+        ======================================== */
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+        .delay-600 { animation-delay: 600ms; }
+        .delay-700 { animation-delay: 700ms; }
+        .delay-800 { animation-delay: 800ms; }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">🔍</div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">SIAPE</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen hidden">
+        <div class="login-background" id="loginBackground"></div>
+        
+        <div class="login-container">
+            <div class="logo">
+                <div class="logo-icon">🔍</div>
+                <h1>SIAPE</h1>
+                <p class="logo-subtitle">Sistema Inteligente de Achados e Perdidos Escolar</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="userName" class="input-with-icon" required placeholder="Digite seu nome completo" minlength="3">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Institucional</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input type="email" id="userEmail" class="input-with-icon" required placeholder="seu.email@escola.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Telefone / WhatsApp</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📱</span>
+                        <input type="tel" id="userPhone" class="input-with-icon" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>Entrar no Sistema</span>
+                    <span>→</span>
+                </button>
+
+                <p style="text-align: center; margin-top: var(--spacing-lg); color: var(--gray-500); font-size: 0.875rem;">
+                    Ao entrar, você concorda com nossos termos de uso e privacidade
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="appScreen" class="app-container">
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        
+        <div class="app-wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-logo">
+                        <span>🔍</span>
+                        <span>SIAPE</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-user">
+                    <div class="user-avatar-wrapper">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <div class="user-status"></div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name" id="sidebarUserName">Usuário</div>
+                        <div class="user-email" id="sidebarUserEmail">email@escola.com</div>
+                    </div>
+                    <div class="user-stats">
+                        <div class="user-stat">
+                            <div class="user-stat-value" id="userLostCount">0</div>
+                            <div class="user-stat-label">Perdidos</div>
+                        </div>
+                        <div class="user-stat">
+                            <div class="user-stat-value" id="userFoundCount">0</div>
+                            <div class="user-stat-label">Achados</div>
+                        </div>
+                        <div class="user-stat">
+                            <div class="user-stat-value" id="userMatchCount">0</div>
+                            <div class="user-stat-label">Matches</div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-section-title">Menu Principal</div>
+                        <a class="nav-item active" onclick="navigateTo('dashboard')">
+                            <span class="nav-icon">📊</span>
+                            <span>Dashboard</span>
+                        </a>
+                        <a class="nav-item" onclick="navigateTo('analytics')">
+                            <span class="nav-icon">📈</span>
+                            <span>Análises</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Registros</div>
+                        <a class="nav-item" onclick="navigateTo('register-lost')">
+                            <span class="nav-icon">❌</span>
+                            <span>Perdi Algo</span>
+                        </a>
+                        <a class="nav-item" onclick="navigateTo('register-found')">
+                            <span class="nav-icon">✅</span>
+                            <span>Achei Algo</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Explorar</div>
+                        <a class="nav-item" onclick="navigateTo('search')">
+                            <span class="nav-icon">🔎</span>
+                            <span>Buscar Itens</span>
+                        </a>
+                        <a class="nav-item" onclick="navigateTo('matches')">
+                            <span class="nav-icon">🎯</span>
+                            <span>Correspondências</span>
+                            <span class="nav-badge" id="matchesBadge">0</span>
+                        </a>
+                        <a class="nav-item" onclick="navigateTo('my-items')">
+                            <span class="nav-icon">📦</span>
+                            <span>Meus Itens</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <span>🌙 Modo Escuro</span>
+                        <span id="themeToggleIcon">→</span>
+                    </div>
+                    <button class="btn btn-secondary btn-full" onclick="logout()">
+                        <span>🚪</span>
+                        <span>Sair</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- CONTINUA NA PRÓXIMA PARTE... -->
+                
+<!-- Dashboard Page -->
+<div id="page-dashboard" class="page">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Dashboard</h1>
+            <div class="header-actions">
+                <button class="btn btn-icon btn-secondary" onclick="refreshData()" title="Atualizar">
+                    🔄
+                </button>
+                <button class="btn btn-primary" onclick="navigateTo('register-lost')">
+                    <span>+</span>
+                    <span>Novo Registro</span>
+                </button>
+            </div>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Dashboard</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-trend up">
+                        <span>↑</span>
+                        <span id="lostTrend">0%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="statLost">0</div>
+                <div class="stat-label">Itens Perdidos</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="lostProgress" style="width: 0%"></div>
+                </div>
+                <div class="stat-footer">
+                    <span id="lostFooter">Atualizado agora</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon" style="background: var(--gradient-success);">✅</div>
+                    <div class="stat-trend up">
+                        <span>↑</span>
+                        <span id="foundTrend">0%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="statFound">0</div>
+                <div class="stat-label">Itens Encontrados</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="foundProgress" style="width: 0%; background: var(--gradient-success);"></div>
+                </div>
+                <div class="stat-footer">
+                    <span id="foundFooter">Atualizado agora</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon" style="background: var(--gradient-warning);">🎯</div>
+                    <div class="stat-trend up">
+                        <span>↑</span>
+                        <span id="matchTrend">0%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="statMatches">0</div>
+                <div class="stat-label">Correspondências</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" id="matchProgress" style="width: 0%; background: var(--gradient-warning);"></div>
+                </div>
+                <div class="stat-footer">
+                    <span id="matchFooter">Verificado agora</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon" style="background: var(--gradient-info);">📈</div>
+                    <div class="stat-trend up">
+                        <span>↑</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="statTotal">0</div>
+                <div class="stat-label">Total de Itens</div>
+                <div class="stat-progress">
+                    <div class="stat-progress-bar" style="width: 100%; background: var(--gradient-info);"></div>
+                </div>
+                <div class="stat-footer">
+                    <span>Sistema ativo e funcionando</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <span>⭐</span>
+                    <span>Últimos Registros</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <div id="dashboardItems"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Analytics Page -->
+<div id="page-analytics" class="page hidden">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Análises e Estatísticas</h1>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Análises</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="card mb-xl">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <span>📊</span>
+                    <span>Distribuição por Categoria</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-xl">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <span>📍</span>
+                    <span>Itens por Localização</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="locationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <span>📅</span>
+                    <span>Registros ao Longo do Tempo</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Lost Page -->
+<div id="page-register-lost" class="page hidden">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Registrar Item Perdido</h1>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Perdi Algo</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <span>📝</span>
+                    <span>Preencha os detalhes do item perdido</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <form id="lostItemForm">
+                    <div class="filters-grid mb-xl">
+                        <div class="form-group">
+                            <label>Tipo do Objeto *</label>
+                            <select id="lostType" required>
+                                <option value="">Selecione...</option>
+                                <option value="Celular">📱 Celular</option>
+                                <option value="Documento">📄 Documento (RG, CNH, etc)</option>
+                                <option value="Fone de Ouvido">🎧 Fone de Ouvido</option>
+                                <option value="Chave">🔑 Chave</option>
+                                <option value="Carteira">👛 Carteira</option>
+                                <option value="Mochila">🎒 Mochila</option>
+                                <option value="Livro">📚 Livro</option>
+                                <option value="Óculos">👓 Óculos</option>
+                                <option value="Garrafa">🍼 Garrafa / Squeeze</option>
+                                <option value="Relógio">⌚ Relógio</option>
+                                <option value="Guarda-Chuva">☂️ Guarda-Chuva</option>
+                                <option value="Notebook">💻 Notebook</option>
+                                <option value="Tablet">📱 Tablet</option>
+                                <option value="Carregador">🔌 Carregador</option>
+                                <option value="Jaqueta">🧥 Jaqueta / Casaco</option>
+                                <option value="Tênis">👟 Tênis / Calçado</option>
+                                <option value="Outro">📦 Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cor Principal *</label>
+                            <input type="text" id="lostColor" required placeholder="Ex: Preto, Azul, Vermelho">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Marca / Modelo</label>
+                            <input type="text" id="lostBrand" placeholder="Ex: Samsung, Apple, Nike">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Local Onde Perdeu *</label>
+                            <select id="lostLocation" required>
+                                <option value="">Selecione...</option>
+                                <option value="Sala de Aula">🏫 Sala de Aula</option>
+                                <option value="Biblioteca">📚 Biblioteca</option>
+                                <option value="Cantina">🍽️ Cantina</option>
+                                <option value="Quadra">⚽ Quadra Esportiva</option>
+                                <option value="Banheiro">🚻 Banheiro</option>
+                                <option value="Pátio">🌳 Pátio</option>
+                                <option value="Estacionamento">🚗 Estacionamento</option>
+                                <option value="Laboratório">🔬 Laboratório</option>
+                                <option value="Auditório">🎭 Auditório</option>
+                                <option value="Secretaria">📋 Secretaria</option>
+                                <option value="Corredor">🚶 Corredor</option>
+                                <option value="Refeitório">🍴 Refeitório</option>
+                                <option value="Outro">📍 Outro Local</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data da Perda *</label>
+                            <input type="date" id="lostDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Horário Aproximado</label>
+                            <input type="time" id="lostTime">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-xl">
+                        <label>Descrição Adicional</label>
+                        <textarea id="lostDescription" placeholder="Detalhes que possam ajudar a identificar o objeto (marcas, arranhões, adesivos, características únicas, etc.)"></textarea>
+                    </div>
+
+                    <div class="form-group mb-2xl">
+                        <label>Foto do Item (Opcional)</label>
+                        <div class="image-upload-wrapper">
+                            <div class="image-upload" id="lostUploadArea" onclick="document.getElementById('lostImage').click()">
+                                <div class="upload-icon">📸</div>
+                                <div class="upload-text">Clique para adicionar uma foto</div>
+                                <div class="upload-hint">PNG, JPG ou WEBP até 5MB</div>
+                            </div>
+                            <input type="file" id="lostImage" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'lostUploadArea', 'lostPreview')">
+                            <img id="lostPreview" class="image-preview hidden">
+                            <button type="button" class="remove-image hidden" id="lostRemoveBtn" onclick="removeImage('lost')">✕</button>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-lg">
+                        <button type="submit" class="btn btn-danger" style="flex: 1;">
+                            <span>❌</span>
+                            <span>Registrar Item Perdido</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="navigateTo('dashboard')">
+                            <span>Cancelar</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Found Page -->
+<div id="page-register-found" class="page hidden">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Registrar Item Encontrado</h1>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Achei Algo</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <span>📝</span>
+                    <span>Preencha os detalhes do item encontrado</span>
+                </h2>
+            </div>
+            <div class="card-body">
+                <form id="foundItemForm">
+                    <div class="filters-grid mb-xl">
+                        <div class="form-group">
+                            <label>Tipo do Objeto *</label>
+                            <select id="foundType" required>
+                                <option value="">Selecione...</option>
+                                <option value="Celular">📱 Celular</option>
+                                <option value="Documento">📄 Documento (RG, CNH, etc)</option>
+                                <option value="Fone de Ouvido">🎧 Fone de Ouvido</option>
+                                <option value="Chave">🔑 Chave</option>
+                                <option value="Carteira">👛 Carteira</option>
+                                <option value="Mochila">🎒 Mochila</option>
+                                <option value="Livro">📚 Livro</option>
+                                <option value="Óculos">👓 Óculos</option>
+                                <option value="Garrafa">🍼 Garrafa / Squeeze</option>
+                                <option value="Relógio">⌚ Relógio</option>
+                                <option value="Guarda-Chuva">☂️ Guarda-Chuva</option>
+                                <option value="Notebook">💻 Notebook</option>
+                                <option value="Tablet">📱 Tablet</option>
+                                <option value="Carregador">🔌 Carregador</option>
+                                <option value="Jaqueta">🧥 Jaqueta / Casaco</option>
+                                <option value="Tênis">👟 Tênis / Calçado</option>
+                                <option value="Outro">📦 Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cor Principal *</label>
+                            <input type="text" id="foundColor" required placeholder="Ex: Preto, Azul, Vermelho">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Marca / Modelo</label>
+                            <input type="text" id="foundBrand" placeholder="Ex: Samsung, Apple, Nike">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Local Onde Encontrou *</label>
+                            <select id="foundLocation" required>
+                                <option value="">Selecione...</option>
+                                <option value="Sala de Aula">🏫 Sala de Aula</option>
+                                <option value="Biblioteca">📚 Biblioteca</option>
+                                <option value="Cantina">🍽️ Cantina</option>
+                                <option value="Quadra">⚽ Quadra Esportiva</option>
+                                <option value="Banheiro">🚻 Banheiro</option>
+                                <option value="Pátio">🌳 Pátio</option>
+                                <option value="Estacionamento">🚗 Estacionamento</option>
+                                <option value="Laboratório">🔬 Laboratório</option>
+                                <option value="Auditório">🎭 Auditório</option>
+                                <option value="Secretaria">📋 Secretaria</option>
+                                <option value="Corredor">🚶 Corredor</option>
+                                <option value="Refeitório">🍴 Refeitório</option>
+                                <option value="Outro">📍 Outro Local</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data em que Encontrou *</label>
+                            <input type="date" id="foundDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Horário Aproximado</label>
+                            <input type="time" id="foundTime">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-xl">
+                        <label>Descrição Adicional</label>
+                        <textarea id="foundDescription" placeholder="Detalhes que possam ajudar o dono a identificar (marcas, arranhões, adesivos, características únicas, etc.)"></textarea>
+                    </div>
+
+                    <div class="form-group mb-2xl">
+                        <label>Foto do Item (Recomendado) *</label>
+                        <div class="image-upload-wrapper">
+                            <div class="image-upload" id="foundUploadArea" onclick="document.getElementById('foundImage').click()">
+                                <div class="upload-icon">📸</div>
+                                <div class="upload-text">Clique para adicionar uma foto</div>
+                                <div class="upload-hint">PNG, JPG ou WEBP até 5MB</div>
+                            </div>
+                            <input type="file" id="foundImage" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'foundUploadArea', 'foundPreview')">
+                            <img id="foundPreview" class="image-preview hidden">
+                            <button type="button" class="remove-image hidden" id="foundRemoveBtn" onclick="removeImage('found')">✕</button>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-lg">
+                        <button type="submit" class="btn btn-success" style="flex: 1;">
+                            <span>✅</span>
+                            <span>Registrar Item Encontrado</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="navigateTo('dashboard')">
+                            <span>Cancelar</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search Page -->
+<div id="page-search" class="page hidden">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Buscar Itens</h1>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Buscar</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="filters-wrapper">
+            <div class="filters-header">
+                <h3 class="filters-title">
+                    <span>🔍</span>
+                    <span>Filtros de Busca Avançada</span>
+                </h3>
+                <button class="btn btn-secondary" onclick="clearFilters()">
+                    <span>🔄</span>
+                    <span>Limpar Filtros</span>
+                </button>
+            </div>
+
+            <div class="search-bar">
+                <span class="search-icon">🔎</span>
+                <input type="text" id="searchQuery" class="search-input" placeholder="Buscar por descrição, marca, local..." oninput="applyFilters()">
+            </div>
+
+            <div class="filters-grid">
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="filterType" onchange="applyFilters()">
+                        <option value="">Todos os tipos</option>
+                        <option value="Celular">📱 Celular</option>
+                        <option value="Documento">📄 Documento</option>
+                        <option value="Fone de Ouvido">🎧 Fone de Ouvido</option>
+                        <option value="Chave">🔑 Chave</option>
+                        <option value="Carteira">👛 Carteira</option>
+                        <option value="Mochila">🎒 Mochila</option>
+                        <option value="Livro">📚 Livro</option>
+                        <option value="Óculos">👓 Óculos</option>
+                        <option value="Garrafa">🍼 Garrafa</option>
+                        <option value="Relógio">⌚ Relógio</option>
+                        <option value="Notebook">💻 Notebook</option>
+                        <option value="Tablet">📱 Tablet</option>
+                        <option value="Carregador">🔌 Carregador</option>
+                        <option value="Jaqueta">🧥 Jaqueta</option>
+                        <option value="Tênis">👟 Tênis</option>
+                        <option value="Outro">📦 Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Cor</label>
+                    <input type="text" id="filterColor" placeholder="Digite a cor" oninput="applyFilters()">
+                </div>
+
+                <div class="form-group">
+                    <label>Local</label>
+                    <select id="filterLocation" onchange="applyFilters()">
+                        <option value="">Todos os locais</option>
+                        <option value="Sala de Aula">🏫 Sala de Aula</option>
+                        <option value="Biblioteca">📚 Biblioteca</option>
+                        <option value="Cantina">🍽️ Cantina</option>
+                        <option value="Quadra">⚽ Quadra</option>
+                        <option value="Banheiro">🚻 Banheiro</option>
+                        <option value="Pátio">🌳 Pátio</option>
+                        <option value="Estacionamento">🚗 Estacionamento</option>
+                        <option value="Laboratório">🔬 Laboratório</option>
+                        <option value="Auditório">🎭 Auditório</option>
+                        <option value="Secretaria">📋 Secretaria</option>
+                        <option value="Corredor">🚶 Corredor</option>
+                        <option value="Refeitório">🍴 Refeitório</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="filterStatus" onchange="applyFilters()">
+                        <option value="">Todos</option>
+                        <option value="lost">❌ Perdidos</option>
+                        <option value="found">✅ Encontrados</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="searchResults"></div>
+    </div>
+</div>
+
+<!-- Matches Page -->
+<div id="page-matches" class="page hidden">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Correspondências</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="findMatches()">
+                    <span>🔄</span>
+                    <span>Atualizar Matches</span>
+                </button>
+            </div>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Correspondências</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="alert alert-info">
+            <span class="alert-icon">ℹ️</span>
+            <div>
+                <strong>Como funciona:</strong> O sistema compara automaticamente itens perdidos e encontrados 
+                por tipo, cor e marca. Quando encontra correspondências com alta compatibilidade, elas aparecem aqui com destaque!
+                O algoritmo inteligente calcula um score de compatibilidade para cada match.
+            </div>
+        </div>
+
+        <div id="matchesResults"></div>
+    </div>
+</div>
+
+<!-- My Items Page -->
+<div id="page-my-items" class="page hidden">
+    <div class="content-header">
+        <div class="content-header-top">
+            <h1 class="content-title">Meus Itens</h1>
+        </div>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">🏠 Início</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item">Meus Itens</span>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div id="myItemsContent"></div>
+    </div>
+</div>
+            </main>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <!-- FAB Container -->
+        <div class="fab-container">
+            <button class="fab-btn" onclick="navigateTo('register-found')" title="Achei algo">
+                ✅
+            </button>
+            <button class="fab-btn" onclick="navigateTo('register-lost')" title="Perdi algo">
+                ❌
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes do Item -->
+    <div class="modal-overlay" id="itemModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Detalhes do Item</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Conteúdo dinâmico -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Fechar</button>
+                <button class="btn btn-primary" id="modalContactBtn">
+                    <span>📧</span>
+                    <span>Entrar em Contato</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // VARIÁVEIS GLOBAIS
+        // ========================================
+        let currentUser = null;
+        let lostItems = [];
+        let foundItems = [];
+        let currentPage = 'dashboard';
+        let isDarkMode = false;
+        let charts = {
+            category: null,
+            location: null,
+            timeline: null
+        };
+
+        // Palavras bloqueadas para moderação
+        const blockedWords = ['idiota', 'burro', 'estúpido', 'imbecil', 'lixo', 'merda', 'porra', 'desgraça', 'otário'];
+
+        // ========================================
+        // INICIALIZAÇÃO
+        // ========================================
+        window.addEventListener('load', () => {
+            simulateLoading();
+            createParticles();
+            
+            // Configurações de data
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = ['lostDate', 'foundDate'];
+            dateInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if(input) {
+                    input.setAttribute('max', today);
+                    input.value = today;
+                }
+            });
+
+            // Event listeners
+            document.getElementById('itemModal').addEventListener('click', function(e) {
+                if(e.target === this) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'Escape') closeModal();
+            });
+
+            // Carrega tema salvo
+            const savedTheme = localStorage.getItem('siape_theme');
+            if(savedTheme === 'dark') toggleTheme();
+        });
+
+        // ========================================
+        // LOADING SCREEN
+        // ========================================
+        function simulateLoading() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                document.getElementById('loginScreen').classList.remove('hidden');
+            }, 2500);
+        }
+
+        // ========================================
+        // PARTÍCULAS ANIMADAS
+        // ========================================
+        function createParticles() {
+            const background = document.getElementById('loginBackground');
+            if(!background) return;
+
+            for(let i = 0; i < 60; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'login-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 15) + 's';
+                background.appendChild(particle);
+            }
+        }
+
+        // ========================================
+        // TOAST NOTIFICATIONS
+        // ========================================
+        function showToast(title, message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: 'ℹ️'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type] || icons.info}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.4s ease-out';
+                setTimeout(() => toast.remove(), 400);
+            }, 5000);
+        }
+
+        // ========================================
+        // LOGIN
+        // ========================================
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+
+            if(name.length < 3) {
+                showToast('Erro', 'O nome deve ter pelo menos 3 caracteres', 'error');
+                return;
+            }
+
+            if(!email.includes('@')) {
+                showToast('Erro', 'Por favor, insira um email válido', 'error');
+                return;
+            }
+
+            currentUser = { name, email, phone };
+            
+            // Atualiza interface
+            document.getElementById('sidebarUserName').textContent = name;
+            document.getElementById('sidebarUserEmail').textContent = email;
+            document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
+            
+            // Transição de telas
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('appScreen').style.display = 'block';
+            
+            showToast('Bem-vindo!', `Olá ${name}, você está no SIAPE!`, 'success');
+            
+            // Carrega dados salvos
+            loadFromLocalStorage();
+            updateStats();
+            renderDashboard();
+            initializeCharts();
+        });
+
+        // ========================================
+        // LOGOUT
+        // ========================================
+        function logout() {
+            if(confirm('Deseja realmente sair? Os dados serão salvos automaticamente.')) {
+                saveToLocalStorage();
+                
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('appScreen').style.display = 'none';
+                document.getElementById('loginForm').reset();
+                
+                currentUser = null;
+                
+                showToast('Até logo!', 'Você saiu do sistema com sucesso', 'success');
+            }
+        }
+
+        // ========================================
+        // NAVEGAÇÃO
+        // ========================================
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            
+            const pageElement = document.getElementById(`page-${page}`);
+            if(pageElement) {
+                pageElement.classList.remove('hidden');
+            }
+            
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if(event?.currentTarget) event.currentTarget.classList.add('active');
+            
+            currentPage = page;
+            
+            if(window.innerWidth <= 1024) {
+                toggleSidebar();
+            }
+            
+            updatePageContent(page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updatePageContent(page) {
+            switch(page) {
+                case 'dashboard':
+                    renderDashboard();
+                    break;
+                case 'analytics':
+                    updateCharts();
+                    break;
+                case 'search':
+                    applyFilters();
+                    break;
+                case 'matches':
+                    findMatches();
+                    break;
+                case 'my-items':
+                    renderMyItems();
+                    break;
+            }
+        }
+
+        // ========================================
+        // SIDEBAR
+        // ========================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // ========================================
+        // THEME TOGGLE
+        // ========================================
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const html = document.documentElement;
+            
+            if(isDarkMode) {
+                html.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggleIcon').textContent = '☀️';
+                localStorage.setItem('siape_theme', 'dark');
+                showToast('Tema Escuro', 'Modo escuro ativado com sucesso', 'success');
+            } else {
+                html.removeAttribute('data-theme');
+                document.getElementById('themeToggleIcon').textContent = '🌙';
+                localStorage.setItem('siape_theme', 'light');
+                showToast('Tema Claro', 'Modo claro ativado com sucesso', 'success');
+            }
+        }
+
+        // ========================================
+        // IMAGE UPLOAD
+        // ========================================
+        function handleImageUpload(input, uploadAreaId, previewId) {
+            const uploadArea = document.getElementById(uploadAreaId);
+            const preview = document.getElementById(previewId);
+            const removeBtn = document.getElementById(uploadAreaId.replace('UploadArea', 'RemoveBtn'));
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                if(file.size > 5 * 1024 * 1024) {
+                    showToast('Erro', 'A imagem deve ter no máximo 5MB', 'error');
+                    input.value = '';
+                    return;
+                }
+                
+                if(!file.type.startsWith('image/')) {
+                    showToast('Erro', 'Por favor, selecione uma imagem válida', 'error');
+                    input.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    uploadArea.classList.add('has-image', 'hidden');
+                    removeBtn.classList.remove('hidden');
+                    showToast('Sucesso', 'Imagem adicionada com sucesso!', 'success');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(type) {
+            const uploadArea = document.getElementById(`${type}UploadArea`);
+            const preview = document.getElementById(`${type}Preview`);
+            const input = document.getElementById(`${type}Image`);
+            const removeBtn = document.getElementById(`${type}RemoveBtn`);
+            
+            preview.src = '';
+            preview.classList.add('hidden');
+            uploadArea.classList.remove('has-image', 'hidden');
+            removeBtn.classList.add('hidden');
+            input.value = '';
+        }
+
+        // ========================================
+        // MODERAÇÃO
+        // ========================================
+        function moderateContent(text) {
+            if(!text) return { isValid: true, message: '' };
+            
+            const lowerText = text.toLowerCase();
+            for(let word of blockedWords) {
+                if(lowerText.includes(word)) {
+                    return { 
+                        isValid: false, 
+                        message: 'A descrição contém palavras inapropriadas. Por favor, seja respeitoso.'
+                    };
+                }
+            }
+            return { isValid: true, message: '' };
+        }
+
+        // ========================================
+        // REGISTRAR ITEM PERDIDO
+        // ========================================
+        document.getElementById('lostItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const description = document.getElementById('lostDescription').value;
+            const moderation = moderateContent(description);
+            
+            if(!moderation.isValid) {
+                showToast('Atenção', moderation.message, 'error');
+                return;
+            }
+
+            const item = {
+                id: Date.now(),
+                type: document.getElementById('lostType').value,
+                color: document.getElementById('lostColor').value.toLowerCase().trim(),
+                brand: document.getElementById('lostBrand').value.toLowerCase().trim(),
+                location: document.getElementById('lostLocation').value,
+                date: document.getElementById('lostDate').value,
+                time: document.getElementById('lostTime').value || 'Não informado',
+                description: description,
+                image: document.getElementById('lostPreview').src || null,
+                user: currentUser.name,
+                userEmail: currentUser.email,
+                userPhone: currentUser.phone,
+                status: 'lost',
+                createdAt: new Date().toISOString()
+            };
+
+            lostItems.unshift(item);
+            saveToLocalStorage();
+            
+            showToast('Sucesso!', 'Item perdido registrado com sucesso. Vamos ajudar você a encontrá-lo!', 'success');
+            
+            this.reset();
+            removeImage('lost');
+            updateStats();
+            updateUserStats();
+            checkNewMatches(item);
+            
+            setTimeout(() => {
+                navigateTo('dashboard');
+                document.querySelector('.nav-item').click();
+            }, 1500);
+        });
+
+        // ========================================
+        // REGISTRAR ITEM ENCONTRADO
+        // ========================================
+        document.getElementById('foundItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const description = document.getElementById('foundDescription').value;
+            const moderation = moderateContent(description);
+            
+            if(!moderation.isValid) {
+                showToast('Atenção', moderation.message, 'error');
+                return;
+            }
+
+            const item = {
+                id: Date.now(),
+                type: document.getElementById('foundType').value,
+                color: document.getElementById('foundColor').value.toLowerCase().trim(),
+                brand: document.getElementById('foundBrand').value.toLowerCase().trim(),
+                location: document.getElementById('foundLocation').value,
+                date: document.getElementById('foundDate').value,
+                time: document.getElementById('foundTime').value || 'Não informado',
+                description: description,
+                image: document.getElementById('foundPreview').src || null,
+                user: currentUser.name,
+                userEmail: currentUser.email,
+                userPhone: currentUser.phone,
+                status: 'found',
+                createdAt: new Date().toISOString()
+            };
+
+            foundItems.unshift(item);
+            saveToLocalStorage();
+            
+            showToast('Sucesso!', 'Item encontrado registrado! Vamos ajudar a encontrar o dono.', 'success');
+            
+            this.reset();
+            removeImage('found');
+            updateStats();
+            updateUserStats();
+            checkNewMatches(item);
+            
+            setTimeout(() => {
+                navigateTo('dashboard');
+                document.querySelector('.nav-item').click();
+            }, 1500);
+        });
+
+        // ========================================
+        // VERIFICAR CORRESPONDÊNCIAS
+        // ========================================
+        function checkNewMatches(newItem) {
+            const matches = [];
+            const compareList = newItem.status === 'found' ? lostItems : foundItems;
+            
+            compareList.forEach(item => {
+                if(isMatch(newItem, item)) {
+                    matches.push(item);
+                }
+            });
+            
+            if(matches.length > 0) {
+                showToast('🎯 Correspondência!', `Encontramos ${matches.length} possível(is) correspondência(s)!`, 'success');
+                
+                setTimeout(() => {
+                    const badge = document.getElementById('matchesBadge');
+                    badge.style.animation = 'heartbeat 0.6s';
+                }, 500);
+            }
+        }
+
+        function isMatch(item1, item2) {
+            const typeMatch = item1.type === item2.type;
+            const colorMatch = item1.color === item2.color;
+            const brandMatch = item1.brand && item2.brand && item1.brand === item2.brand;
+            
+            return typeMatch && (colorMatch || brandMatch);
+        }
+
+        function calculateMatchScore(item1, item2) {
+            let score = 0;
+            
+            if(item1.type === item2.type) score += 40;
+            if(item1.color === item2.color) score += 30;
+            if(item1.brand && item2.brand && item1.brand === item2.brand) score += 20;
+            if(item1.location === item2.location) score += 10;
+            
+            return score;
+        }
+
+        // ========================================
+        // ATUALIZAR ESTATÍSTICAS
+        // ========================================
+        function updateStats() {
+            const matches = findMatchesList();
+            const total = lostItems.length + foundItems.length;
+            
+            document.getElementById('statLost').textContent = lostItems.length;
+            document.getElementById('statFound').textContent = foundItems.length;
+            document.getElementById('statMatches').textContent = matches.length;
+            document.getElementById('statTotal').textContent = total;
+            
+            document.getElementById('matchesBadge').textContent = matches.length;
+            
+            const lostProgress = total > 0 ? (lostItems.length / total * 100) : 0;
+            const foundProgress = total > 0 ? (foundItems.length / total * 100) : 0;
+            const matchProgress = total > 0 ? (matches.length / total * 100) : 0;
+            
+            document.getElementById('lostProgress').style.width = lostProgress + '%';
+            document.getElementById('foundProgress').style.width = foundProgress + '%';
+            document.getElementById('matchProgress').style.width = matchProgress + '%';
+            
+            document.getElementById('lostTrend').textContent = lostItems.length > 0 ? '+' + lostItems.length : '0';
+            document.getElementById('foundTrend').textContent = foundItems.length > 0 ? '+' + foundItems.length : '0';
+            document.getElementById('matchTrend').textContent = matches.length > 0 ? '+' + matches.length : '0';
+        }
+
+        function updateUserStats() {
+            const userLost = lostItems.filter(item => item.userEmail === currentUser.email).length;
+            const userFound = foundItems.filter(item => item.userEmail === currentUser.email).length;
+            const userMatches = findMatchesList().filter(match => 
+                match.lost.userEmail === currentUser.email || match.found.userEmail === currentUser.email
+            ).length;
+            
+            document.getElementById('userLostCount').textContent = userLost;
+            document.getElementById('userFoundCount').textContent = userFound;
+            document.getElementById('userMatchCount').textContent = userMatches;
+        }
+
+        // ========================================
+        // RENDERIZAR DASHBOARD
+        // ========================================
+        function renderDashboard() {
+            const container = document.getElementById('dashboardItems');
+            const allItems = [...lostItems, ...foundItems].sort((a, b) => b.id - a.id);
+            
+            if(allItems.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h3 class="empty-title">Nenhum item registrado ainda</h3>
+                        <p class="empty-description">
+                            Comece registrando itens perdidos ou encontrados usando o menu lateral<br>
+                            ou os botões de ação rápida no canto inferior direito
+                        </p>
+                        <div class="flex gap-lg justify-center" style="margin-top: var(--spacing-2xl);">
+                            <button class="btn btn-danger" onclick="navigateTo('register-lost')">
+                                <span>❌</span>
+                                <span>Perdi Algo</span>
+                            </button>
+                            <button class="btn btn-success" onclick="navigateTo('register-found')">
+                                <span>✅</span>
+                                <span>Achei Algo</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `<div class="items-grid">${allItems.slice(0, 6).map(item => createItemCard(item)).join('')}</div>`;
+        }
+
+        // ========================================
+        // CRIAR CARD DE ITEM
+        // ========================================
+        function createItemCard(item, showMatch = false) {
+            const imageHtml = item.image && item.image !== 'null' ? 
+                `<img src="${item.image}" class="item-image" alt="${item.type}">` : 
+                `<div class="item-placeholder">${getItemEmoji(item.type)}</div>`;
+            
+            const matchClass = showMatch ? 'match-found' : '';
+            
+            return `
+                <div class="item-card ${matchClass}" onclick="showItemDetails(${item.id}, '${item.status}')">
+                    <div class="item-image-wrapper">
+                        ${imageHtml}
+                        <div class="item-badge ${item.status === 'lost' ? 'badge-lost' : 'badge-found'}">
+                            ${item.status === 'lost' ? 'PERDIDO' : 'ENCONTRADO'}
+                        </div>
+                    </div>
+                    <div class="item-body">
+                        <h3 class="item-title">${item.type}</h3>
+                        <div class="item-details">
+                            <div class="item-detail">
+                                <span class="item-detail-icon">🎨</span>
+                                <span><strong>Cor:</strong> ${capitalizeFirst(item.color)}</span>
+                            </div>
+                            ${item.brand ? `
+                                <div class="item-detail">
+                                    <span class="item-detail-icon">🏷️</span>
+                                    <span><strong>Marca:</strong> ${capitalizeFirst(item.brand)}</span>
+                                </div>
+                            ` : ''}
+                            <div class="item-detail">
+                                <span class="item-detail-icon">📍</span>
+                                <span><strong>Local:</strong> ${item.location}</span>
+                            </div>
+                            <div class="item-detail">
+                                <span class="item-detail-icon">📅</span>
+                                <span><strong>Data:</strong> ${formatDate(item.date)}</span>
+                            </div>
+                            ${item.time !== 'Não informado' ? `
+                                <div class="item-detail">
+                                    <span class="item-detail-icon">🕐</span>
+                                    <span><strong>Horário:</strong> ${item.time}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        ${item.description ? `
+                            <div class="item-description">
+                                ${item.description.length > 140 ? item.description.substring(0, 140) + '...' : item.description}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="item-footer">
+                        <div class="item-user">
+                            <span>👤</span>
+                            <span>${item.user}</span>
+                        </div>
+                        <div class="item-date">
+                            ${getTimeAgo(item.createdAt)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========================================
+        // MODAL DE DETALHES
+        // ========================================
+        function showItemDetails(itemId, status) {
+            const item = status === 'lost' ? 
+                lostItems.find(i => i.id === itemId) : 
+                foundItems.find(i => i.id === itemId);
+            
+            if(!item) return;
+            
+            const modal = document.getElementById('itemModal');
+            const modalBody = document.getElementById('modalBody');
+            const contactBtn = document.getElementById('modalContactBtn');
+            
+            const imageHtml = item.image && item.image !== 'null' ? 
+                `<img src="${item.image}" style="width: 100%; max-height: 450px; object-fit: cover; border-radius: var(--radius-2xl); margin-bottom: var(--spacing-2xl); box-shadow: var(--shadow-xl);" alt="${item.type}">` : 
+                `<div style="width: 100%; height: 350px; background: linear-gradient(135deg, var(--gray-100), var(--gray-200)); border-radius: var(--radius-2xl); display: flex; align-items: center; justify-content: center; font-size: 8rem; margin-bottom: var(--spacing-2xl);">${getItemEmoji(item.type)}</div>`;
+            
+            modalBody.innerHTML = `
+                ${imageHtml}
+                <div style="display: grid; gap: var(--spacing-xl);">
+                    <div style="background: ${item.status === 'lost' ? 'var(--danger-50)' : 'var(--success-50)'}; padding: var(--spacing-xl); border-radius: var(--radius-xl); border-left: 8px solid ${item.status === 'lost' ? 'var(--danger-500)' : 'var(--success-500)'};">
+                        <div style="font-size: 0.875rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: ${item.status === 'lost' ? 'var(--danger-700)' : 'var(--success-700)'};">Status do Item</div>
+                        <div style="font-size: 1.75rem; font-weight: 900; margin-top: 0.5rem; color: ${item.status === 'lost' ? 'var(--danger-700)' : 'var(--success-700)'}; font-family: 'Poppins', sans-serif;">${item.status === 'lost' ? '❌ Item Perdido' : '✅ Item Encontrado'}</div>
+                    </div>
+
+                    <div>
+                        <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; letter-spacing: 1px; font-weight: 800;">Tipo do Objeto</strong>
+                        <p style="font-size: 1.75rem; font-weight: 800; color: var(--gray-900); margin-top: 0.75rem; font-family: 'Poppins', sans-serif;">${getItemEmoji(item.type)} ${item.type}</p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl);">
+                        <div>
+                            <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; font-weight: 800;">Cor Principal</strong>
+                            <p style="margin-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">🎨 ${capitalizeFirst(item.color)}</p>
+                        </div>
+                        ${item.brand ? `
+                            <div>
+                                <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; font-weight: 800;">Marca/Modelo</strong>
+                                <p style="margin-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">🏷️ ${capitalizeFirst(item.brand)}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl);">
+                        <div>
+                            <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; font-weight: 800;">Local</strong>
+                            <p style="margin-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">📍 ${item.location}</p>
+                        </div>
+                        <div>
+                            <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; font-weight: 800;">Data</strong>
+                            <p style="margin-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">📅 ${formatDate(item.date)}</p>
+                        </div>
+                    </div>
+
+                    ${item.time !== 'Não informado' ? `
+                        <div>
+                            <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; font-weight: 800;">Horário Aproximado</strong>
+                            <p style="margin-top: 0.75rem; font-size: 1.25rem; font-weight: 700;">🕐 ${item.time}</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${item.description ? `
+                        <div>
+                            <strong style="color: var(--gray-500); text-transform: uppercase; font-size: 0.875rem; font-weight: 800;">Descrição Completa</strong>
+                            <p style="margin-top: 0.75rem; line-height: 1.8; font-size: 1.05rem; color: var(--gray-700);">${item.description}</p>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="background: linear-gradient(135deg, var(--primary-50), var(--secondary-50)); padding: var(--spacing-2xl); border-radius: var(--radius-2xl); margin-top: var(--spacing-lg); border: 2px solid var(--primary-200);">
+                        <strong style="color: var(--primary-700); text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; font-weight: 800;">Informações de Contato</strong>
+                        <div style="margin-top: var(--spacing-lg);">
+                            <p style="font-weight: 800; font-size: 1.3rem; color: var(--gray-900); margin-bottom: 0.75rem; font-family: 'Poppins', sans-serif;">👤 ${item.user}</p>
+                            <p style="color: var(--gray-700); margin-bottom: 0.5rem; font-size: 1.05rem;">📧 ${item.userEmail}</p>
+                            ${item.userPhone ? `<p style="color: var(--gray-700); font-size: 1.05rem;">📱 ${item.userPhone}</p>` : ''}
+                        </div>
+                        <div style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--primary-200); color: var(--gray-600); font-size: 1rem; font-weight: 600;">
+                            ⏰ Registrado ${getTimeAgo(item.createdAt)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            contactBtn.onclick = () => {
+                const subject = encodeURIComponent(`SIAPE: ${item.type} ${item.status === 'lost' ? 'Perdido' : 'Encontrado'}`);
+                const body = encodeURIComponent(`Olá ${item.user},\n\nVi seu registro no SIAPE sobre o ${item.type} ${item.status === 'lost' ? 'perdido' : 'encontrado'}.\n\nGostaria de conversar sobre isso.\n\nObrigado!`);
+                window.location.href = `mailto:${item.userEmail}?subject=${subject}&body=${body}`;
+            };
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('itemModal').classList.remove('active');
+        }
+
+        // ========================================
+        // BUSCA E FILTROS
+        // ========================================
+        function applyFilters() {
+            const query = document.getElementById('searchQuery')?.value.toLowerCase() || '';
+            const type = document.getElementById('filterType')?.value || '';
+            const color = document.getElementById('filterColor')?.value.toLowerCase() || '';
+            const location = document.getElementById('filterLocation')?.value || '';
+            const status = document.getElementById('filterStatus')?.value || '';
+
+            let items = [...lostItems, ...foundItems];
+
+            if(query) {
+                items = items.filter(item => 
+                    item.type.toLowerCase().includes(query) ||
+                    item.color.includes(query) ||
+                    item.brand.includes(query) ||
+                    item.location.toLowerCase().includes(query) ||
+                    item.description.toLowerCase().includes(query) ||
+                    item.user.toLowerCase().includes(query)
+                );
+            }
+            if(type) items = items.filter(item => item.type === type);
+            if(color) items = items.filter(item => item.color.includes(color));
+            if(location) items = items.filter(item => item.location === location);
+            if(status) items = items.filter(item => item.status === status);
+
+            const container = document.getElementById('searchResults');
+            
+            if(items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <h3 class="empty-title">Nenhum item encontrado</h3>
+                        <p class="empty-description">Tente ajustar os filtros de busca ou limpar todos os filtros para ver todos os itens</p>
+                        <button class="btn btn-primary" onclick="clearFilters()" style="margin-top: var(--spacing-2xl);">
+                            <span>🔄</span>
+                            <span>Limpar Todos os Filtros</span>
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="alert alert-success" style="margin-bottom: var(--spacing-2xl);">
+                    <span class="alert-icon">✅</span>
+                    <div>
+                        <strong>${items.length} item(ns) encontrado(s)</strong>
+                        <p style="margin-top: 0.375rem; color: var(--success-700);">Clique em qualquer item para ver detalhes completos e informações de contato</p>
+                    </div>
+                </div>
+                <div class="items-grid">${items.map(item => createItemCard(item)).join('')}</div>
+            `;
+        }
+
+        function clearFilters() {
+            document.getElementById('searchQuery').value = '';
+            document.getElementById('filterType').value = '';
+            document.getElementById('filterColor').value = '';
+            document.getElementById('filterLocation').value = '';
+            document.getElementById('filterStatus').value = '';
+            applyFilters();
+        }
+
+        // ========================================
+        // CORRESPONDÊNCIAS
+        // ========================================
+        function findMatchesList() {
+            const matches = [];
+            
+            lostItems.forEach(lost => {
+                foundItems.forEach(found => {
+                    if(isMatch(lost, found)) {
+                        matches.push({ 
+                            lost, 
+                            found, 
+                            score: calculateMatchScore(lost, found) 
+                        });
+                    }
+                });
+            });
+            
+            return matches.sort((a, b) => b.score - a.score);
+        }
+
+        function findMatches() {
+            const matches = findMatchesList();
+            const container = document.getElementById('matchesResults');
+            
+            if(matches.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🎯</div>
+                        <h3 class="empty-title">Nenhuma correspondência encontrada</h3>
+                        <p class="empty-description">
+                            Quando houver itens perdidos e encontrados com características semelhantes,<br>
+                            eles aparecerão aqui automaticamente com score de compatibilidade!
+                        </p>
+                        <div class="flex gap-lg justify-center" style="margin-top: var(--spacing-2xl);">
+                            <button class="btn btn-danger" onclick="navigateTo('register-lost')">
+                                <span>❌</span>
+                                <span>Registrar Perdido</span>
+                            </button>
+                            <button class="btn btn-success" onclick="navigateTo('register-found')">
+                                <span>✅</span>
+                                <span>Registrar Encontrado</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = matches.map(match => `
+                <div class="card" style="margin-bottom: var(--spacing-3xl); border: 4px solid var(--success-500); animation: glow 3s infinite;">
+                    <div class="card-header" style="background: var(--gradient-success); color: white;">
+                        <h3 style="color: white; display: flex; align-items: center; gap: var(--spacing-lg); font-family: 'Poppins', sans-serif; font-size: 1.75rem;">
+                            <span style="font-size: 2.5rem;">🎯</span>
+                            <div>
+                                <div>Correspondência Encontrada!</div>
+                                <div style="font-size: 1rem; opacity: 0.95; font-weight: 700; margin-top: 0.5rem;">
+                                    ${match.score}% de compatibilidade detectada
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="items-grid">
+                            ${createItemCard(match.lost, true)}
+                            ${createItemCard(match.found, true)}
+                        </div>
+                        <div class="match-indicator">
+                            <span class="match-icon">✨</span>
+                            <div>
+                                <strong>Esses itens parecem corresponder perfeitamente!</strong><br>
+                                Compatibilidade detectada: Tipo ✓ Cor ✓ ${match.lost.brand && match.found.brand ? 'Marca ✓' : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ========================================
+        // MEUS ITENS
+        // ========================================
+        function renderMyItems() {
+            const container = document.getElementById('myItemsContent');
+            const myLost = lostItems.filter(item => item.userEmail === currentUser.email);
+            const myFound = foundItems.filter(item => item.userEmail === currentUser.email);
+            const allMyItems = [...myLost, ...myFound].sort((a, b) => b.id - a.id);
+            
+            if(allMyItems.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📦</div>
+                        <h3 class="empty-title">Você ainda não registrou nenhum item</h3>
+                        <p class="empty-description">
+                            Comece registrando itens que você perdeu ou encontrou
+                        </p>
+                        <div class="flex gap-lg justify-center" style="margin-top: var(--spacing-2xl);">
+                            <button class="btn btn-danger" onclick="navigateTo('register-lost')">
+                                <span>❌</span>
+                                <span>Perdi Algo</span>
+                            </button>
+                            <button class="btn btn-success" onclick="navigateTo('register-found')">
+                                <span>✅</span>
+                                <span>Achei Algo</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="stats-grid mb-2xl">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 4rem; margin-bottom: var(--spacing-lg);">❌</div>
+                            <div style="font-size: 3rem; font-weight: 900; color: var(--danger-500); font-family: 'Poppins', sans-serif;">${myLost.length}</div>
+                            <div style="color: var(--gray-600); font-weight: 700; margin-top: var(--spacing-md); font-size: 1.125rem;">Itens que você perdeu</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 4rem; margin-bottom: var(--spacing-lg);">✅</div>
+                            <div style="font-size: 3rem; font-weight: 900; color: var(--success-500); font-family: 'Poppins', sans-serif;">${myFound.length}</div>
+                            <div style="color: var(--gray-600); font-weight: 700; margin-top: var(--spacing-md); font-size: 1.125rem;">Itens que você achou</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 4rem; margin-bottom: var(--spacing-lg);">📦</div>
+                            <div style="font-size: 3rem; font-weight: 900; color: var(--primary-500); font-family: 'Poppins', sans-serif;">${allMyItems.length}</div>
+                            <div style="color: var(--gray-600); font-weight: 700; margin-top: var(--spacing-md); font-size: 1.125rem;">Total de registros</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span>📋</span>
+                            <span>Todos os Meus Registros</span>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="items-grid">
+                            ${allMyItems.map(item => createItemCard(item)).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========================================
+        // CHARTS - ANALYTICS
+        // ========================================
+        function initializeCharts() {
+            updateCharts();
+        }
+
+        function updateCharts() {
+            createCategoryChart();
+            createLocationChart();
+            createTimelineChart();
+        }
+
+        function createCategoryChart() {
+            const ctx = document.getElementById('categoryChart');
+            if(!ctx) return;
+
+            const types = {};
+            [...lostItems, ...foundItems].forEach(item => {
+                types[item.type] = (types[item.type] || 0) + 1;
+            });
+
+            const labels = Object.keys(types);
+            const data = Object.values(types);
+
+            if(charts.category) charts.category.destroy();
+
+            charts.category = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#6366f1',
+                            '#8b5cf6',
+                            '#ec4899',
+                            '#f59e0b',
+                            '#10b981',
+                            '#3b82f6',
+                            '#ef4444',
+                            '#14b8a6',
+                            '#f97316',
+                            '#a855f7',
+                            '#06b6d4',
+                            '#84cc16'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    weight: 600
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createLocationChart() {
+            const ctx = document.getElementById('locationChart');
+            if(!ctx) return;
+
+            const locations = {};
+            [...lostItems, ...foundItems].forEach(item => {
+                locations[item.location] = (locations[item.location] || 0) + 1;
+            });
+
+            const labels = Object.keys(locations);
+            const data = Object.values(locations);
+
+            if(charts.location) charts.location.destroy();
+
+            charts.location = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Quantidade de Itens',
+                        data: data,
+                        backgroundColor: '#6366f1',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                                font: {
+                                    size: 12,
+                                    weight: 600
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    weight: 600
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTimelineChart() {
+            const ctx = document.getElementById('timelineChart');
+            if(!ctx) return;
+
+            const dates = {};
+            [...lostItems, ...foundItems].forEach(item => {
+                const date = item.date;
+                dates[date] = (dates[date] || 0) + 1;
+            });
+
+            const sortedDates = Object.keys(dates).sort();
+            const data = sortedDates.map(date => dates[date]);
+
+            if(charts.timeline) charts.timeline.destroy();
+
+            charts.timeline = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: sortedDates.map(date => formatDate(date)),
+                    datasets: [{
+                        label: 'Registros por Dia',
+                        data: data,
+                        borderColor: '#6366f1',
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                                font: {
+                                    size: 12,
+                                    weight: 600
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    weight: 600
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ========================================
+        // LOCAL STORAGE
+        // ========================================
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('siape_lost_items', JSON.stringify(lostItems));
+                localStorage.setItem('siape_found_items', JSON.stringify(foundItems));
+                localStorage.setItem('siape_last_save', new Date().toISOString());
+            } catch(e) {
+                console.error('Erro ao salvar dados:', e);
+                showToast('Erro', 'Não foi possível salvar os dados automaticamente', 'error');
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const savedLost = localStorage.getItem('siape_lost_items');
+                const savedFound = localStorage.getItem('siape_found_items');
+                
+                if(savedLost) lostItems = JSON.parse(savedLost);
+                if(savedFound) foundItems = JSON.parse(savedFound);
+                
+                updateStats();
+                updateUserStats();
+                renderDashboard();
+            } catch(e) {
+                console.error('Erro ao carregar dados:', e);
+            }
+        }
+
+        // ========================================
+        // REFRESH DATA
+        // ========================================
+        function refreshData() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '0%';
+            
+            setTimeout(() => progressBar.style.width = '30%', 100);
+            setTimeout(() => progressBar.style.width = '70%', 300);
+            
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                updateStats();
+                updateUserStats();
+                renderDashboard();
+                showToast('Atualizado!', 'Todos os dados foram atualizados com sucesso', 'success');
+                
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                }, 500);
+            }, 600);
+        }
+
+        // ========================================
+        // FUNÇÕES UTILITÁRIAS
+        // ========================================
+        function formatDate(dateString) {
+            const date = new Date(dateString + 'T00:00:00');
+            return date.toLocaleDateString('pt-BR');
+        }
+
+        function capitalizeFirst(str) {
+            if(!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function getTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diff = now - date;
+            
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if(minutes < 1) return 'Agora mesmo';
+            if(minutes < 60) return `${minutes}min atrás`;
+            if(hours < 24) return `${hours}h atrás`;
+            if(days < 7) return `${days}d atrás`;
+            if(days < 30) return `${Math.floor(days / 7)} semana(s) atrás`;
+            
+            return formatDate(dateString.split('T')[0]);
+        }
+
+        function getItemEmoji(type) {
+            const emojis = {
+                'Celular': '📱',
+                'Documento': '📄',
+                'Fone de Ouvido': '🎧',
+                'Chave': '🔑',
+                'Carteira': '👛',
+                'Mochila': '🎒',
+                'Livro': '📚',
+                'Óculos': '👓',
+                'Garrafa': '🍼',
+                'Relógio': '⌚',
+                'Guarda-Chuva': '☂️',
+                'Notebook': '💻',
+                'Tablet': '📱',
+                'Carregador': '🔌',
+                'Jaqueta': '🧥',
+                'Tênis': '👟',
+                'Outro': '📦'
+            };
+            return emojis[type] || '📦';
+        }
+
+        // Auto-save a cada 30 segundos
+        setInterval(() => {
+            if(currentUser) {
+                saveToLocalStorage();
+            }
+        }, 30000);
+
+        // Save before unload
+        window.addEventListener('beforeunload', () => {
+            if(currentUser) {
+                saveToLocalStorage();
+            }
+        });
+    </script>
+</body>
+</html>
