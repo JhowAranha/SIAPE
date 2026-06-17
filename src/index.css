@@ -2,28 +2,18 @@
 
 @theme {
   /* Cores Customizadas */
-  --color-bgDeep: #080C1A;
-  --color-bgDark: #0D1228;
-  
-  /* Objeto Primary (DEFAULT, dark, light) */
-  --color-primary: #6C63FF;
-  --color-primary-dark: #4B44CC;
-  --color-primary-light: #A89CFF;
-  
-  /* Demais Cores e Acentos */
-  --color-accent: #00D4AA;
-  --color-accent2: #FF6B6B;
-  --color-accent3: #FFB347;
-  --color-textMuted: #8891B4;
-  --color-textDim: #4A5180;
+  --color-primary: #2d3d4d;
+  --color-secondary: #1a2a3a;
+  --color-terciary: #334555;
 
-  /* Gradientes de Fundo */
-  --background-image-glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #9ca3af;
+  --color-text-transp: #06b6d4;
 }
 
 @layer base {
   body {
-    @apply bg-bgDeep text-[#F0F2FF] font-sans antialiased overflow-x-hidden;
+    /* @apply bg-bgDeep text-[#F0F2FF] font-sans antialiased overflow-x-hidden; */
   }
 }
 

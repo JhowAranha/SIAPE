@@ -1,118 +1,216 @@
-import React, { useState, useEffect } from 'react';
-import { User, Item } from './types';
-import { MOCK_USERS, INITIAL_ITEMS } from './mockData';
-import { handleGoogleLogin } from './bd/supabase';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  ArrowLeft, Mail, Lock, Eye, EyeOff, LogIn, 
+  ShieldCheck, Sparkles
+} from 'lucide-react';
+import {supabase} from "./bd/supabase";
 
 export default function App() {
-  // --- ESTADOS DO SISTEMA ---
-  const [loading, setLoading] = useState<boolean>(true);
-  
-  
-  // Login Inputs
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [loginError, setLoginError] = useState<string>('');
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [toast, setToast] = useState<{ show: boolean; message: string; type: string }>({ 
+    show: false, message: '', type: 'success' 
+  });
 
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/home` // Rota para onde o usuário será redirecionado após o login
+      }
+    });
 
-
-  // // --- EFEITOS (Simulando o ciclo de vida antigo) ---
-  useEffect(() => {
-    // 1. Loader de Inicialização (1.8 segundos)
-    const timer = setTimeout(() => setLoading(false), 1800);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // --- FUNÇÕES DE INTERAÇÃO ---
-  // const handleLogin = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const user = MOCK_USERS.find(u => u.email === email);
-  //   // Simulação do comportamento de aceitar o password '123456' ou igual ao email como estava no código original
-  //   if (user && (password === '123456' || password === 'demo')) {
-  //     setCurrentUser(user);
-  //     sessionStorage.setItem('siape_logged_user', JSON.stringify(user));
-  //     setLoginError('');
-  //   } else {
-  //     setLoginError('Credenciais inválidas. Use os emails de exemplo.');
-  //   }
-  // };
-
-  // const handleLogout = () => {
-  //   setCurrentUser(null);
-  //   sessionStorage.removeItem('siape_logged_user');
-  // };
-  // --- RENDER DO LOADER INICIAL ---
-  if (loading) {
-    return (
-      <div className="fixed inset-0 bg-bgDeep flex flex-col items-center justify-center z-50 transition-all duration-500">
-        <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-          <div className="absolute inset-0 border-2 border-primary/20 border-t-primary rounded-full animate-spin-slow"></div>
-          <div className="absolute inset-2 border-2 border-accent/10 border-b-accent rounded-full animate-spin-reverse"></div>
-          <svg className="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
-          </svg>
-        </div>
-        <h1 className="text-3xl font-bold tracking-wider text-white">SIAPE</h1>
-        <p className="text-textMuted text-sm mt-1">Sistema de Achados e Perdidos Escolar</p>
-      </div>
-    );
+    if (error) {
+      console.error('Erro ao fazer login com o Google:', error.message);
+    }
   }
 
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-bgDeep relative">
-        {/* Efeito de círculos luminosos de fundo (Tailwind puro) */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+  const showToast = (message: string, type: string = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: '', type: 'success' }), 3000);
+  };
 
-        <div className="w-full max-w-md bg-bgDark/60 border border-white/10 p-8 rounded-2xl backdrop-blur-md shadow-2xl">
-          <div className="text-center mb-6">
-            <div className="inline-flex p-3 bg-primary/10 rounded-xl mb-3 text-primary">
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!email || !password) {
+      showToast('⚠️ Preencha todos os campos!', 'error');
+      return;
+    }
+
+    showToast('✅ Login realizado com sucesso!');
+    setTimeout(() => navigate('/'), 1500);
+  };
+
+
+
+  return (
+    <div className="h-full w-full flex items-center justify-center overflow-auto">
+      <main className="relative z-10 w-full max-w-md py-12 px-6">
+
+        {/* Logo + Title */}
+        <div className="text-center mb-8 animate-fade-up-delay">
+          <div className="relative inline-block mb-4">
+            <div className="absolute inset-0 rounded-full bg-cyan-400/20 pulse-ring"></div>
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto shadow-lg bg-gradient-to-br from-cyan-400 to-blue-500 border-2 border-cyan-300/50">
+              <svg viewBox="0 0 48 48" className="w-10 h-10">
+                <circle cx="20" cy="20" r="8" stroke="#ffffff" strokeWidth="2.5" fill="none" />
+                <line x1="26" y1="26" x2="36" y2="36" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M34 12 L38 8 L40 10 L36 14 Z" fill="#ffffff" />
+                <circle cx="38" cy="34" r="3" fill="#ffffff" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-white">Acessar o SIAPEE</h2>
-            <p className="text-textMuted text-sm mt-1">Insira suas credenciais escolares</p>
           </div>
+          <h1 className="text-4xl font-[800] text-white tracking-tight mb-2">
+            Bem-vindo!
+          </h1>
+          <p className="text-cyan-300 text-sm font-light italic">
+            Acesse sua conta para continuar
+          </p>
+        </div>
 
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1 text-textMuted">E-mail</label>
+        {/* Form */}
+        <form className="space-y-5 animate-fade-up-delay2" onSubmit={handleSubmit}>
+          
+          {/* Email */}
+          <div className="glass rounded-xl p-6 space-y-3">
+            <label className="block text-cyan-300 font-semibold text-sm">
+              E-mail
+            </label>
+            <div className="relative">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-300/60" />
               <input 
                 type="email" 
-                required
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-colors"
-                placeholder="ex: admin@escola.edu.br"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="seu.email@etec.sp.gov.br" 
+                required 
+                className="w-full bg-white/10 border border-white/20 rounded-lg pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400/50 focus:bg-white/15 transition-all" 
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1 text-textMuted">Senha</label>
+          </div>
+          
+          {/* Senha */}
+          <div className="glass rounded-xl p-6 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-cyan-300 font-semibold text-sm">
+                Senha
+              </label>
+              <button 
+                type="button"
+                onClick={() => showToast('🔑 Em breve!')}
+                className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                Esqueceu a senha?
+              </button>
+            </div>
+            <div className="relative">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-300/60" />
               <input 
-                type="password" 
-                required
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-colors"
-                placeholder="••••••••"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Digite sua senha" 
+                required 
+                className="w-full bg-white/10 border border-white/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400/50 focus:bg-white/15 transition-all" 
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg hover:bg-white/10 transition-all"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-4 h-4 text-cyan-300/60" />
+                ) : (
+                  <Eye className="w-4 h-4 text-cyan-300/60" />
+                )}
+              </button>
             </div>
+          </div>
 
-            {loginError && <p className="text-accent2 text-xs font-medium">{loginError}</p>}
+          {/* Remember Me */}
+          <label className="flex items-center gap-3 cursor-pointer select-none px-2">
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="sr-only peer"
+              />
+              <div className="w-5 h-5 bg-white/10 border border-white/20 rounded-md peer-checked:bg-cyan-500 peer-checked:border-cyan-400 transition-all flex items-center justify-center">
+                {rememberMe && (
+                  <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </div>
+            </div>
+            <span className="text-sm text-gray-300">Manter-me conectado</span>
+          </label>
+          
+          {/* Submit */}
+          <button 
+            type="submit" 
+            className="w-full btn-primary bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
+          >
+            <LogIn className="w-5 h-5" />
+            <span>Entrar</span>
+          </button>
 
-            <button type="submit" className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-lg transition-colors shadow-lg shadow-primary/20">
-              Entrar no Painel
-            </button>
-            <button className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-lg transition-colors shadow-lg shadow-primary/20" onClick={handleGoogleLogin}>
-              Entrar com o Google
-            </button>
-          </form>
+          {/* Google */}
+          <button 
+            onClick={handleGoogleLogin}
+            className="w-full btn-primary bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
+          >
+            <LogIn className="w-5 h-5" />
+            <span>Entrar com o Google</span>
+          </button>
 
-          <div className="mt-6 pt-4 border-t border-white/5 text-center">
-            <p className="text-xs text-textMuted">Contas de teste: <span className="text-primary-light">admin@escola.edu.br</span> (senha: 123456)</p>
+          {/* Divider */}
+          <div className="flex items-center gap-3 py-2">
+            <div className="flex-1 h-px bg-white/10"></div>
+            <span className="text-xs text-gray-400">ou</span>
+            <div className="flex-1 h-px bg-white/10"></div>
+          </div>
+
+          {/* Register Link */}
+          <button 
+            type="button"
+            onClick={() => navigate('/register-account')}
+            className="w-full btn-primary bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
+          >
+            <Sparkles className="w-5 h-5" />
+            <span>Criar nova conta</span>
+          </button>
+        </form>
+
+        {/* Trust badges */}
+        <div className="flex justify-center gap-6 mt-8 animate-fade-up-delay3">
+          <div className="flex items-center gap-2 text-gray-400 text-xs">
+            <ShieldCheck className="w-4 h-4 text-cyan-300" />
+            <span>Conexão segura</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-400 text-xs">
+            <Sparkles className="w-4 h-4 text-emerald-300" />
+            <span>Dados protegidos</span>
           </div>
         </div>
-      </div>
-    );
-  }
+
+        {/* Toast Notification */}
+        <div className={`fixed bottom-10 left-1/2 transform -translate-x-1/2 transition-all duration-500 ${toast.show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+          <div className={`inline-block px-6 py-3 rounded-lg text-white text-sm shadow-lg backdrop-blur border ${
+            toast.type === 'error' 
+              ? 'bg-red-500/20 border-red-400/50' 
+              : 'bg-cyan-500/20 border-cyan-400/50'
+          }`}>
+            {toast.message}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
