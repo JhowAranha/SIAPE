@@ -6,6 +6,10 @@ import {
 } from 'lucide-react';
 import {supabase} from "./bd/supabase";
 
+// Imagens
+import siapeLogo from './assets/logo-siape.png';
+import siapeLogoText from './assets/logo-siape-texto.png'
+
 export default function App() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -57,14 +61,13 @@ export default function App() {
           <div className="relative inline-block mb-4">
             <div className="absolute inset-0 rounded-full bg-cyan-400/20 pulse-ring"></div>
             <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto shadow-lg bg-gradient-to-br from-cyan-400 to-blue-500 border-2 border-cyan-300/50">
-              <svg viewBox="0 0 48 48" className="w-10 h-10">
-                <circle cx="20" cy="20" r="8" stroke="#ffffff" strokeWidth="2.5" fill="none" />
-                <line x1="26" y1="26" x2="36" y2="36" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M34 12 L38 8 L40 10 L36 14 Z" fill="#ffffff" />
-                <circle cx="38" cy="34" r="3" fill="#ffffff" />
-              </svg>
+              <img src={siapeLogo} 
+        alt="Logo do projeto SIAPE" 
+        width={200} />
+             
             </div>
           </div>
+           
           <h1 className="text-4xl font-[800] text-white tracking-tight mb-2">
             Bem-vindo!
           </h1>
