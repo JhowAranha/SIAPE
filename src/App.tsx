@@ -156,9 +156,10 @@ export default function App() {
           </label>
           
           {/* Submit */}
-          <button 
+          <button
+          disabled 
             type="submit" 
-            className="w-full btn-primary bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
+            className="w-full btn-primary bg-gradient-to-r from-gray-500 to-gray-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
           >
             <LogIn className="w-5 h-5" />
             <span>Entrar</span>
@@ -182,9 +183,10 @@ export default function App() {
 
           {/* Register Link */}
           <button 
+          disabled
             type="button"
             onClick={() => navigate('/register-account')}
-            className="w-full btn-primary bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
+            className="w-full btn-primary bg-gradient-to-r  from-gray-500 to-gray-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all"
           >
             <Sparkles className="w-5 h-5" />
             <span>Criar nova conta</span>
