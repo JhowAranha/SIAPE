@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# SIAPE 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O **SIAPE** é uma aplicação web moderna e de alta performance desenvolvida para otimizar o gerenciamento e monitoramento de dados, oferecendo uma experiência fluida, segura e responsiva para o usuário. 
 
-Currently, two official plugins are available:
+A aplicação foi construída utilizando uma arquitetura moderna baseada em **Single Page Application (SPA)** com separação clara de responsabilidades, tipagem estática rigorosa e infraestrutura em nuvem de última geração.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠️ Ecossistema Tecnológico
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Front-end
+- **[React](https://react.dev/):** Biblioteca principal para a construção de interfaces de usuário modulares e baseadas em componentes.
+- **[Vite](https://vitejs.dev/):** Ferramenta de build e bundling de nova geração, garantindo um ambiente de desenvolvimento ultrarrápido com Hot Module Replacement (HMR).
+- **[TypeScript](https://www.typescriptlang.org/):** Supersuposto JavaScript que adiciona tipagem estática opcional, prevenindo erros em tempo de compilação e melhorando a manutenibilidade do código.
 
-## Expanding the ESLint configuration
+### Back-end & Infraestrutura (BaaS)
+- **[Supabase](https://supabase.com/):** Plataforma backend-as-a-service de código aberto construída sobre o **PostgreSQL**.
+  - **Supabase Auth:** Autenticação e gestão de usuários robusta através do protocolo **Google OAuth (OpenID Connect)**.
+  - **PostgreSQL / Supabase DB:** Armazenamento seguro de dados relacionais e controle de acessos nativo via RLS (Row Level Security).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Hospedagem & CI/CD
+- **[Vercel](https://vercel.com/):** Plataforma global Edge Network utilizada para hospedagem do front-end com pipelines de Integração e Entrega Contínua (CI/CD) automáticos baseados no repositório GitHub.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ⚙️ Fluxo de Autenticação & Arquitetura de Redirecionamento
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+O sistema implementa o fluxo seguro do **Google OAuth** mediado pelo Supabase. Abaixo está detalhada a engrenagem trilateral de comunicação:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **Início do Fluxo (Cliente):** O cliente React invoca dinamicamente o método `signInWithOAuth` passando `window.location.origin` para construir de forma flexível a URL de retorno.
+2. **Validação do Provedor (Google Cloud Platform):** O GCP valida as credenciais contra as origens permitidas (`localhost` e `vercel.app`) e redireciona o token de acesso temporário para os servidores do Supabase.
+3. **Resolução de Rotas (Vercel):** Após a validação do Supabase, o usuário é enviado para a rota interna `/home` transportando o token hash. Para evitar erros `404: NOT_FOUND` nativos de servidores que tentam buscar pastas estáticas, a Vercel reescreve as requisições direcionando o tráfego de volta ao core SPA (`index.html`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📦 Configuração e Instalação Local
+
+### Pré-requisitos
+Certifique-se de que possui o **Node.js** (versão LTS recomendada) instalado na sua máquina operacional.
+
+1. **Clonar o Repositório**
+   ```bash
+   git clone [https://github.com/JhowAranha/SIAPE.git](https://github.com/JhowAranha/SIAPE.git)
+   cd SIAPE
