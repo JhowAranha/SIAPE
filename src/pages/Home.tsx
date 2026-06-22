@@ -4,7 +4,6 @@ import CardProfile from '../components/CardProfile';
 
 // Imagens
 import siapeLogo from '../assets/logo-siape.png';
-import siapeLogoText from '../assets/logo-siape-texto.png'
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,22 +13,23 @@ export default function Home() {
       <div className="absolute top-6 right-6 z-20 animate-fasde-up">
         <CardProfile />
       </div>
-      <main className="relative z-10 text-center px-6 max-w-2xl w-full py-12">
+      <main className="max-w-2xl w-full mx-10 flex flex-col gap-4">
         <div className="flex items-center h-max mx-auto my-10 text-center">
           <img src={siapeLogo} className='object-contain size-28'></img>
           <h1 className='text-6xl text-center bg-linear-to-r from-button to-bluelight bg-clip-text text-transparent'>Siape</h1>
         </div>
 
-        <h1 className="animate-fade-up text-6xl font-extrabold text-white tracking-tight mb-3">SIAPE</h1>
-        <p className="animate-fade-up-delay text-xl font-light text-cyan-300 mb-2 italic">Encontre o que perdeu. Devolva o que achou.</p>
-        <p className="animate-fade-up-delay2 text-gray-400 text-base font-light mb-12">Sistema de Achados e Perdidos</p>
+        <h2 className='text-center text-2xl text-white'>
+          Conectando <label className='text-bluelight'>pessoas</label><br/>
+          aos seus <label className='text-bluelight'>pertences.</label>
+        </h2>
         
-        <div className="animate-fade-up-delay3 flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <button onClick={() => navigate('/register')} className="btn-primary bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all">
+        <div className="animate-fade-up-delay3 flex flex-col sm:flex-row gap-4 justify-center mb-12 mt-8">
+          <button onClick={() => navigate('/register')} className="btn-primary bg-linear-to-r from-bluelight to-button hover:scale-105 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all cursor-pointer">
             <PlusCircle className="w-5 h-5" />
             <span>Registrar Item</span>
           </button>
-          <button onClick={() => navigate('/search')} className="btn-primary bg-linear-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all">
+          <button onClick={() => navigate('/search')} className="btn-primary bg-linear-to-r from-secondlight to-seconddark hover:scale-105 text-white font-semibold px-8 py-3 rounded-lg flex items-center justify-center gap-3 shadow-lg transition-all cursor-pointer">
             <Search className="w-5 h-5" />
             <span>Procurar Item</span>
           </button>

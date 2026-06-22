@@ -14,6 +14,8 @@
   --color-button: #0152e1;
   --color-dark: #021229;
   --color-bluelight: #2EB1E9;
+  --color-secondlight: #f88512;
+  --color-seconddark: #b66009;
 }
 
 @layer base {
