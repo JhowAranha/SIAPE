@@ -1,19 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* Cores Customizadas */
-  --color-primary: #2d3d4d;
+  /* Cores Antigas */
+  /* --color-primary: #2d3d4d;
   --color-secondary: #1a2a3a;
   --color-terciary: #334555;
 
   --color-text-primary: #ffffff;
   --color-text-secondary: #9ca3af;
-  --color-text-transp: #06b6d4;
+  --color-text-transp: #06b6d4; */
+
+  --color-button: #0152e1;
+  --color-dark: #021229;
+  --color-bluelight: #2EB1E9;
 }
 
 @layer base {
   body {
     /* @apply bg-bgDeep text-[#F0F2FF] font-sans antialiased overflow-x-hidden; */
+    font-family: "Nunito", sans-serif;
   }
 }
 
